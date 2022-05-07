@@ -63,10 +63,10 @@ contract MultiPlinsure is PluginClient, Ownable {
     mapping(address => mapping(string => PolicyDetails)) public policies;
     mapping(address => string[]) policyIndex;
 
-    event buyPolicyEvent(string _policyAddress, uint256 _productId, string _latlong);
-    event submitMyClaimLog(string _policyAddress);
-    event claimPolicySuccessful(string _policyAddress);
-    event claimPolicyUnsuccessful(string _policyAddress);
+    event buyPolicyEvent(string _policyHash, uint256 _productId, string _latlong);
+    event submitMyClaimLog(string _policyHash);
+    event claimPolicySuccessful(string _policyHash);
+    event claimPolicyUnsuccessful(string _policyHash);
     
     constructor(address _pli, address _oracleaddress,string memory _jobid) public Ownable() {
         setPluginToken(_pli);
@@ -99,10 +99,10 @@ contract MultiPlinsure is PluginClient, Ownable {
         emit buyPolicyEvent(_policyHash, _productId, _latlong);
     }
     
-    function viewPolicy(string memory _policyAddress) 
+    function viewPolicy(string memory _policyHash) 
     public view returns (PolicyDetails memory)
     {
-        PolicyDetails memory pd = policies[msg.sender][_policyAddress];
+        PolicyDetails memory pd = policies[msg.sender][_policyHash];
         return pd;
     }
 
